@@ -28,7 +28,9 @@ podman run --network=host --privileged --name ${CONTAINER} --rm -it -v /run:/var
 EOF
 
 chmod +x /tmp/suricata.sh
-cp /usr/bin/suricata /tmp/suricata.backup # In case you want to move back without rebooting
+if [ ! -f /tmp/suricata.backup ]; then                                                                                                                
+    cp /usr/bin/suricata /tmp/suricata.backup # In case you want to move back without rebooting                                                       
+fi            
 ln -f -s /tmp/suricata.sh /usr/bin/suricata
 
 if [ ! -z "$APP_PID" ]; then
